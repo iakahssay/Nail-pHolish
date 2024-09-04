@@ -36,10 +36,10 @@ class NixSensorActivity : AppCompatActivity() {
     private var recalledDevice: IDeviceCompat? = null
 
     val phColors = mapOf(
-        "6.0" to intArrayOf(79, 72, 103),
-        "7.0" to intArrayOf(93, 96, 114),
-        "8.0" to intArrayOf(86, 102, 105),
-        "9.0" to intArrayOf(71, 92, 86)
+        "5.0" to intArrayOf(158, 149, 174),
+        "6.0" to intArrayOf(162, 125, 153),
+        "7.0" to intArrayOf(168, 143, 169 ),
+        "8.0" to intArrayOf(125, 147, 168)
     )
     private lateinit var deviceListView: ListView
     private lateinit var progressBar: ProgressBar
@@ -156,16 +156,16 @@ class NixSensorActivity : AppCompatActivity() {
 
     private fun displayPHColors() {
         // Set the background color of each sample view
-        phColors["6.0"]?.let { rgb ->
+        phColors["5.0"]?.let { rgb ->
             binding.colorSample6.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["7.0"]?.let { rgb ->
+        phColors["6.0"]?.let { rgb ->
             binding.colorSample7.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["8.0"]?.let { rgb ->
+        phColors["7.0"]?.let { rgb ->
             binding.colorSample8.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["9.0"]?.let { rgb ->
+        phColors["8.0"]?.let { rgb ->
             binding.colorSample9.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
     }
@@ -242,6 +242,7 @@ class NixSensorActivity : AppCompatActivity() {
             val rgb = it.rgbValue
             runOnUiThread {
                 // binding.rgbTextView.text = "RGB: (${rgb[0]}, ${rgb[1]}, ${rgb[2]})"
+                Log.d(TAG, "RGB: (${rgb[0]}, ${rgb[1]}, ${rgb[2]})")
                 binding.colorSquare.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
             }
         }

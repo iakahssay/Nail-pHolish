@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="pH 6.0"
+                android:text="pH 5.0"
                 android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="pH 7.0"
+                android:text="pH 6.0"
                 android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="pH 8.0"
+                android:text="pH 7.0"
                 android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="pH 9.0"
+                android:text="pH 8.0"
                 android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>
