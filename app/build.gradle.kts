@@ -4,12 +4,14 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
 }
 
+val bundleId = "com.example.nailapp"
+
 android {
-    namespace = "com.example.dogapp"
+    namespace = bundleId
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dogapp"
+        applicationId = bundleId
         minSdk = 24
         targetSdk = 33
         versionCode = 1
