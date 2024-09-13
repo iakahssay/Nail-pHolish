@@ -25,11 +25,16 @@
     <string name="placeholder_success">Placeholder text</string>
     <string name="mars_photo">Mars photo</string>
 
+    <string name="welcome_text">
+        Nail pHolish
+    </string>
     <string name="description_text">
-        This app helps you monitor your health by analyzing the color of the nail polish. Track your health status over time with detailed history records.
+        This app helps you monitor your health by analyzing the color of the nail polish.
     </string>
 
     <string name="ready_text">
         Ready to begin? Click the green camera button to start the health check now!
     </string>
+
+    <string name="questionnaire_link"><a href="https://docs.google.com/forms/d/e/1FAIpQLScEJKbR6rpwW6nnI2bu5QkQB2RaRxrV6G14_ZMa4ps8SBBXkw/viewform?usp=sf_link">Questionnaire</a></string>
 </resources>

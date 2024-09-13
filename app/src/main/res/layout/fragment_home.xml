@@ -13,6 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/welcome_text"
         android:textAlignment="center"
         android:textColor="@color/pink"
         android:textSize="40sp"
@@ -25,8 +26,8 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="308dp"
-        android:layout_height="200dp"
+        android:layout_width="291dp"
+        android:layout_height="115dp"
         android:text="@string/description_text"
         android:textAlignment="center"
         android:textColor="@color/gray"
@@ -37,7 +38,22 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.249" />
+        app:layout_constraintVertical_bias="0.22" />
+
+    <TextView
+        android:id="@+id/questionnaire"
+        android:layout_width="140dp"
+        android:layout_height="85dp"
+        android:text="@string/questionnaire_link"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:linksClickable="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484" />
 
     <TextView
         android:id="@+id/ready"
@@ -52,7 +68,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.907" />
+        app:layout_constraintVertical_bias="0.851" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -61,8 +77,10 @@
         android:src="@drawable/nail_polish_example3"
         app:layout_constraintBottom_toTopOf="@+id/ready"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.536" />
 
     <Button
         android:id="@+id/buttonHistory"

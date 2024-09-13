@@ -11,7 +11,7 @@
         android:id="@+id/deviceListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/buttonS"
         tools:layout_editor_absoluteX="-16dp" />
 
@@ -131,6 +131,7 @@
         app:layout_constraintVertical_bias="0.529" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="16dp"
@@ -238,6 +239,20 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_edit_colors"
+        android:layout_width="73dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end"
+        android:text="Edit color"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textrange"
+        app:layout_constraintVertical_bias="0.309" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

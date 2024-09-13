@@ -1,6 +1,7 @@
 package com.example.nailapp.ui.home
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.nailapp.databinding.FragmentHomeBinding
 import com.example.nailapp.R
+import com.example.nailapp.databinding.FragmentHomeBinding
+
 
 class HomeFragment : Fragment() {
 
@@ -34,7 +36,8 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-
+        val linkView: TextView = binding.questionnaire
+        linkView.movementMethod = LinkMovementMethod.getInstance()
         // Set click listener for the send button
         binding.buttonHistory.setOnClickListener {
             findNavController().navigate(R.id.action_nav_home_to_nav_slideshow)

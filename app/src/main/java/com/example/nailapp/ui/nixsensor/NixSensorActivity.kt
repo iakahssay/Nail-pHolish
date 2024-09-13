@@ -1,5 +1,6 @@
 package com.example.nailapp.ui.nixsensor
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
@@ -29,16 +30,17 @@ import kotlin.math.sqrt
 import androidx.core.graphics.ColorUtils
 import com.example.nailapp.R
 import android.widget.ArrayAdapter
+import android.widget.EditText
 
 class NixSensorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNixsensorBinding
     private var recalledDevice: IDeviceCompat? = null
 
-    val phColors = mapOf(
+    private val phColors = mutableMapOf(
         "5.0" to intArrayOf(158, 149, 174),
         "6.0" to intArrayOf(162, 125, 153),
-        "7.0" to intArrayOf(168, 143, 169 ),
+        "7.0" to intArrayOf(168, 143, 169),
         "8.0" to intArrayOf(125, 147, 168)
     )
     private lateinit var deviceListView: ListView
@@ -65,6 +67,10 @@ class NixSensorActivity : AppCompatActivity() {
             val selectedDevice = deviceList[position]
             recalledDevice = selectedDevice
             connectToDevice()
+        }
+
+        findViewById<View>(R.id.button_edit_colors).setOnClickListener {
+            showUpdateColorDialog()
         }
     }
 
@@ -272,5 +278,33 @@ class NixSensorActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showUpdateColorDialog() {
+        val builder = AlertDialog.Builder(this)
+//        builder.setTitle("Set RGB Values")
+
+        val dialogView = layoutInflater.inflate(R.layout.dialog_ph_color, null)
+        builder.setView(dialogView)
+
+        val pHEditText = dialogView.findViewById<EditText>(R.id.edit_ph_value)
+        val redEditText = dialogView.findViewById<EditText>(R.id.edit_red_value)
+        val greenEditText = dialogView.findViewById<EditText>(R.id.edit_green_value)
+        val blueEditText = dialogView.findViewById<EditText>(R.id.edit_blue_value)
+
+        builder.setPositiveButton("Save") { _, _ ->
+            val ph = pHEditText.text.toString()
+            val red = redEditText.text.toString().toIntOrNull() ?: 0
+            val green = greenEditText.text.toString().toIntOrNull() ?: 0
+            val blue = blueEditText.text.toString().toIntOrNull() ?: 0
+
+            if (ph.isNotEmpty()) {
+                phColors[ph] = intArrayOf(red, green, blue)
+                displayPHColors()  // Update the UI to reflect changes
+            }
+        }
+
+        builder.setNegativeButton("Cancel", null)
+        builder.show()
     }
 }
