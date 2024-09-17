@@ -11,7 +11,6 @@
         android:id="@+id/deviceListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/buttonS"
         tools:layout_editor_absoluteX="-16dp" />
 
@@ -43,8 +42,8 @@
         android:id="@+id/predictionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pH: "
-        android:visibility="gone"
+        android:text="pH: 7.0"
+        android:visibility="invisible"
         android:textColor="@color/brown"
         android:textSize="50sp"
         android:textStyle="bold"
@@ -119,16 +118,15 @@
 
     <View
         android:id="@+id/colorSquare"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:background="#FFFFFF"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.529" />
+        app:layout_constraintVertical_bias="0.527" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -151,8 +149,8 @@
 
             <View
                 android:id="@+id/colorSample6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="#000000" />
 
             <TextView
@@ -175,8 +173,8 @@
 
             <View
                 android:id="@+id/colorSample7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="#000000" />
 
             <TextView
@@ -199,8 +197,8 @@
 
             <View
                 android:id="@+id/colorSample8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="#000000" />
 
             <TextView
@@ -223,8 +221,8 @@
 
             <View
                 android:id="@+id/colorSample9"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="#000000" />
 
             <TextView
@@ -247,6 +245,7 @@
         android:layout_gravity="end"
         android:text="Edit color"
         android:textSize="10sp"
+
         app:layout_constraintBottom_toTopOf="@+id/buttonS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.952"

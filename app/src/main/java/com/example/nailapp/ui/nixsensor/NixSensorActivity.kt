@@ -38,10 +38,10 @@ class NixSensorActivity : AppCompatActivity() {
     private var recalledDevice: IDeviceCompat? = null
 
     private val phColors = mutableMapOf(
-        "5.0" to intArrayOf(158, 149, 174),
-        "6.0" to intArrayOf(162, 125, 153),
-        "7.0" to intArrayOf(168, 143, 169),
-        "8.0" to intArrayOf(125, 147, 168)
+        "5.0" to intArrayOf(142, 100, 131),
+        "6.0" to intArrayOf(137, 99, 133),
+        "7.0" to intArrayOf(124, 103, 130),
+        "8.0" to intArrayOf(95, 104, 132)
     )
     private lateinit var deviceListView: ListView
     private lateinit var progressBar: ProgressBar
