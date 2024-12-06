@@ -37,4 +37,15 @@
     </string>
 
     <string name="questionnaire_link"><a href="https://docs.google.com/forms/d/e/1FAIpQLScEJKbR6rpwW6nnI2bu5QkQB2RaRxrV6G14_ZMa4ps8SBBXkw/viewform?usp=sf_link">Questionnaire</a></string>
+
+    <string-array name="dropdown_options">
+        <item> pH Levels </item>
+        <item> Nitrate Levels </item>
+        <item> Glucose Levels </item>
+    </string-array>
+
+    <string-array name="ph_level_options">
+
+
+    </string-array>
 </resources>

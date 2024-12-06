@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -31,13 +32,15 @@ import androidx.core.graphics.ColorUtils
 import com.example.nailapp.R
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 
-class NixSensorActivity : AppCompatActivity() {
-
+//Iman: check the runOnUI thread and see if that will affect the dropdown feature I added
+class NixSensorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityNixsensorBinding
     private var recalledDevice: IDeviceCompat? = null
 
-    private val phColors = mutableMapOf(
+    private var measurementColors = mutableMapOf(
         "5.0" to intArrayOf(142, 100, 131),
         "6.0" to intArrayOf(137, 99, 133),
         "7.0" to intArrayOf(124, 103, 130),
@@ -46,12 +49,14 @@ class NixSensorActivity : AppCompatActivity() {
     private lateinit var deviceListView: ListView
     private lateinit var progressBar: ProgressBar
     private val deviceList = mutableListOf<IDeviceCompat>()
+    private var measurementChosen: String = "pH"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNixsensorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        displayPHColors()
+        setupDropDownMenu()
+        displayMeasurementColors()
         setupUI()
         initializeScanner()
     }
@@ -160,18 +165,47 @@ class NixSensorActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayPHColors() {
+    private fun displayMeasurementColors() {
         // Set the background color of each sample view
-        phColors["5.0"]?.let { rgb ->
+        when (measurementChosen) {
+            "Nitrate" -> {
+                val values = arrayOf("6.0", "8.0", "10.0", "12.0")
+                setColorChart(values, 14f)
+            }
+            "Glucose" -> {
+                val values = arrayOf("80.0", "90.0", "100.0", "110.0")
+                setColorChart(values, 13.5f)
+            }
+            else -> { // else show pH levels that are set to show by default
+                val values = arrayOf("5.0", "6.0", "7.0", "8.0")
+                setColorChart(values, 14f)
+            }
+        }
+
+    }
+
+    private fun setColorChart(value: Array<String>, textsize: Float){
+        binding.textSample6.text = "$measurementChosen ${value[0]}"    //"pH 5.0"
+        binding.textSample6.textSize = textsize
+        measurementColors[value[0]]?.let { rgb ->
             binding.colorSample6.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["6.0"]?.let { rgb ->
+
+        binding.textSample7.text = "$measurementChosen ${value[1]}"      //"pH 6.0"
+        binding.textSample7.textSize = textsize
+        measurementColors[value[1]]?.let { rgb ->
             binding.colorSample7.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["7.0"]?.let { rgb ->
+
+        binding.textSample8.text = "${measurementChosen} ${value[2]}"    //"pH 7.0"
+        binding.textSample8.textSize = textsize
+        measurementColors[value[2]]?.let { rgb ->
             binding.colorSample8.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
-        phColors["8.0"]?.let { rgb ->
+
+        binding.textSample9.text = "$measurementChosen ${value[3]}"   //"pH 8.0"
+        binding.textSample9.textSize = textsize
+        measurementColors[value[3]]?.let { rgb ->
             binding.colorSample9.setBackgroundColor(Color.rgb(rgb[0], rgb[1], rgb[2]))
         }
     }
@@ -206,13 +240,13 @@ class NixSensorActivity : AppCompatActivity() {
     }
 
     private fun predictPH(rgbValue: IntArray): String {
-        val nearestLab = phColors
-        val distances = nearestLab.map { (ph, value) ->
-            val distance = euclideanDistance(rgbValue, value)
-            val labdistance = labDistance(rgbValue,value)
-            Log.d(TAG, "RGB Distance to pH $ph: $distance")
-            Log.d(TAG, "LAB Distance to pH $ph: $labdistance")
-            ph to distance
+        val nearestLab = measurementColors
+        val distances = nearestLab.map { (measurementColorsKey, measurementColorsValue) ->
+            val distance = euclideanDistance(rgbValue, measurementColorsValue)
+            val labdistance = labDistance(rgbValue,measurementColorsValue)
+            Log.d(TAG, "RGB Distance to $measurementChosen $measurementColorsKey: $distance")
+            Log.d(TAG, "LAB Distance to $measurementChosen $measurementColorsKey: $labdistance")
+            measurementColorsKey to distance
         }
 
         return distances.minByOrNull { it.second }?.first ?: "Unknown"
@@ -287,24 +321,71 @@ class NixSensorActivity : AppCompatActivity() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_ph_color, null)
         builder.setView(dialogView)
 
-        val pHEditText = dialogView.findViewById<EditText>(R.id.edit_ph_value)
+        val measurementEditText = dialogView.findViewById<EditText>(R.id.edit_ph_value)
+        measurementEditText.hint = "$measurementChosen Value"
+
         val redEditText = dialogView.findViewById<EditText>(R.id.edit_red_value)
         val greenEditText = dialogView.findViewById<EditText>(R.id.edit_green_value)
         val blueEditText = dialogView.findViewById<EditText>(R.id.edit_blue_value)
 
         builder.setPositiveButton("Save") { _, _ ->
-            val ph = pHEditText.text.toString()
+            val measurementAssignedNumber = measurementEditText.text.toString()
             val red = redEditText.text.toString().toIntOrNull() ?: 0
             val green = greenEditText.text.toString().toIntOrNull() ?: 0
             val blue = blueEditText.text.toString().toIntOrNull() ?: 0
 
-            if (ph.isNotEmpty()) {
-                phColors[ph] = intArrayOf(red, green, blue)
-                displayPHColors()  // Update the UI to reflect changes
+            if (measurementAssignedNumber.isNotEmpty()) {
+                measurementColors[measurementAssignedNumber] = intArrayOf(red, green, blue)
+                displayMeasurementColors() // Update the UI to reflect changes
             }
         }
 
         builder.setNegativeButton("Cancel", null)
         builder.show()
+    }
+
+    private fun setupDropDownMenu() {
+        //Variables for drop down menu:
+        val spinner = findViewById<Spinner>(R.id.dropdown_menu)
+        val arrayAdapter = ArrayAdapter.createFromResource(this, R.array.dropdown_options, android.R.layout.simple_spinner_item)
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = arrayAdapter
+        spinner.onItemSelectedListener = this
+    }
+
+    override fun onItemSelected(adapterview: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        val text = adapterview?.getItemAtPosition(position).toString()
+        Toast.makeText(adapterview!!.context, text, Toast.LENGTH_SHORT).show() //!! == non-null assertion operator
+
+        val temp = text.split(" ").toTypedArray()  // Split by spaces -> temp = [pH, Levels]
+        measurementChosen = temp[0]
+
+        //Change layout based on chosen dropdown option:
+        if (measurementChosen == "Nitrate"){
+            //Toast.makeText(adapterview!!.context, measurementChosen, Toast.LENGTH_SHORT).show() //Testing
+            measurementColors = mutableMapOf(
+                "6.0" to intArrayOf(142, 100, 131),
+                "8.0" to intArrayOf(137, 99, 133),
+                "10.0" to intArrayOf(124, 103, 130),
+                "12.0" to intArrayOf(95, 104, 132)
+            )
+        } else if (measurementChosen == "Glucose"){
+            //Toast.makeText(adapterview!!.context, measurementChosen, Toast.LENGTH_SHORT).show() //Testing
+            measurementColors = mutableMapOf(
+                "80.0" to intArrayOf(142, 100, 131),
+                "90.0" to intArrayOf(137, 99, 133),
+                "100.0" to intArrayOf(124, 103, 130),
+                "110.0" to intArrayOf(95, 104, 132)
+            )
+        }
+
+        // Refresh the layout after updating the map
+        displayMeasurementColors()
+
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 }
